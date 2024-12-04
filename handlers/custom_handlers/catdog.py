@@ -1,10 +1,12 @@
 from loader import bot
 from telebot.types import Message
 from keyboards.reply.catdog import gen_markup
+from handlers.custom_handlers.command_history import add_history
 
 @bot.message_handler(commands=["answer"])
 def start_message(message: Message) -> None:
-    bot.send_message(message.from_user.id, "Какое животное тебе нравится больше?", reply_markup=gen_markup())  # Отправляем клавиатуру.
+    bot.send_message(message.from_user.id, "Какое животное тебе нравится больше?", reply_markup=gen_markup())
+    add_history(message)
 
 
 @bot.callback_query_handler(

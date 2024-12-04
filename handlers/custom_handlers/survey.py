@@ -2,12 +2,14 @@ from keyboards.reply.contact import request_contact
 from loader import bot
 from states.contact_information import UserInfoState
 from telebot.types import Message, ReplyKeyboardRemove
+from handlers.custom_handlers.command_history import add_history
 
 
 @bot.message_handler(commands=['survey'])
 def survey(message: Message) -> None:
     bot.set_state(message.from_user.id, UserInfoState.name, message.chat.id)
     bot.send_message(message.from_user.id, f"Привет, {message.from_user.username} введи свое имя")
+    add_history(message)
 
 
 @bot.message_handler(state=UserInfoState.name)

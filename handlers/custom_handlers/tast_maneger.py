@@ -1,3 +1,4 @@
+from handlers.custom_handlers.command_history import add_history
 from loader import bot
 from telebot.types import Message
 from database.models import User, Task
@@ -6,28 +7,16 @@ from states.tast_maneger import UserState
 from typing import List
 import datetime
 from config_data.config import DATE_FORMAT
+from handlers.custom_handlers.command_history import add_history
 
 
 @bot.message_handler(commands=["start_task"])
 def handle_start(message: Message) -> None:
-    user_id = message.from_user.id
-    username = message.from_user.username
-    first_name = message.from_user.first_name
-    last_name = message.from_user.last_name
-
-    try:
-        User.create(
-            user_id=user_id,
-            username=username,
-            first_name=first_name,
-            last_name=last_name,
-        )
         bot.reply_to(message, "Добро пожаловать в менеджер задач!")
-    except IntegrityError:
-        bot.reply_to(message, f"Рад вас снова видеть, {first_name}!")
+        add_history(message)
 
 
-@bot.message_handler(state="*", commands=["newtask"])
+@bot.message_handler(commands=["newtask"])
 def handle_new_task(message: Message) -> None:
     user_id = message.from_user.id
     if User.get_or_none(User.user_id == user_id) is None:
@@ -38,9 +27,10 @@ def handle_new_task(message: Message) -> None:
     bot.set_state(message.from_user.id, UserState.new_task_title)
     with bot.retrieve_data(message.from_user.id) as data:
         data["new_task"] = {"user_id": user_id}
+        add_history(message)
 
 
-@bot.message_handler(state="*", commands=["tasks"])
+@bot.message_handler(commands=["tasks"])
 def handle_tasks(message: Message) -> None:
     user_id = message.from_user.id
     user = User.get_or_none(User.user_id == user_id)
@@ -49,6 +39,7 @@ def handle_tasks(message: Message) -> None:
         return
 
     tasks: List[Task] = user.tasks.order_by(-Task.due_date, -Task.task_id).limit(10)
+
 
     result = []
     result.extend(map(str, reversed(tasks)))
@@ -60,9 +51,10 @@ def handle_tasks(message: Message) -> None:
     result.append("\nВведите номер задачи, чтобы изменить ее статус.")
     bot.send_message(message.from_user.id, "\n".join(result))
     bot.set_state(message.from_user.id, UserState.tasks_make_done)
+    add_history(message)
 
 
-@bot.message_handler(state="*", commands=["today"])
+@bot.message_handler(commands=["today"])
 def handle_today(message: Message) -> None:
     user_id = message.from_user.id
     user = User.get_or_none(User.user_id == user_id)
@@ -71,6 +63,7 @@ def handle_today(message: Message) -> None:
         return
 
     tasks: List[Task] = user.tasks.where(Task.due_date == datetime.date.today())
+
 
     result = []
     result.extend(map(str, tasks))
@@ -82,6 +75,7 @@ def handle_today(message: Message) -> None:
     result.append("\nВведите номер задачи, чтобы изменить ее статус.")
     bot.send_message(message.from_user.id, "\n".join(result))
     bot.set_state(message.from_user.id, UserState.tasks_make_done)
+    add_history(message)
 
 
 @bot.message_handler(state=UserState.new_task_title)

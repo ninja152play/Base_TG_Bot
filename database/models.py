@@ -6,7 +6,7 @@ from peewee import (
     ForeignKeyField,
     IntegerField,
     Model,
-    SqliteDatabase,
+    SqliteDatabase, PrimaryKeyField,
 )
 
 
@@ -21,6 +21,8 @@ class BaseModel(Model):
 
 
 class User(BaseModel):
+    class Meta:
+        db_table = "Users"
     user_id = IntegerField(primary_key=True)
     username = CharField()
     first_name = CharField()
@@ -38,6 +40,23 @@ class Task(BaseModel):
         return "{task_id}. {check} {title} - {due_date}".format(
             task_id=self.task_id,
             check="[V]" if self.is_done else "[ ]",
+            title=self.title,
+            due_date=self.due_date.strftime(DATE_FORMAT),
+        )
+
+
+class Commands(BaseModel):
+    class Meta:
+        db_table = "Commands"
+
+    command_id = PrimaryKeyField(null=False)
+    user = ForeignKeyField(User, backref="hist")
+    title = CharField()
+    due_date = DateField()
+
+    def __str__(self):
+        return "{command_id}. {title} - {due_date}".format(
+            command_id=self.command_id,
             title=self.title,
             due_date=self.due_date.strftime(DATE_FORMAT),
         )

@@ -13,12 +13,15 @@ RAPID_API_KEY = os.getenv("RAPID_API_KEY")
 DEFAULT_COMMANDS = (
     ("start", "Запустить бота"),
     ("help", "Вывести справку"),
+    ("history", "История запросов"),
     ("survey", "Опрос"),
     ("answer", "Кот или собака"),
-    ("translate", "Переводчик" ),
+    ("translate_start", "Запуск переводчик"),
     ("set_lang", "Выбор языка" ),
+    ("translate", "Ввод слова" ),
     ("start_task", "Запустить менеджер задач"),
     ("newtask", "Создать задачу"),
     ("tasks", "Последние 10 задач"),
     ("today", "Задачи на сегодня"),
 )
+
