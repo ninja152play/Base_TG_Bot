@@ -1,7 +1,10 @@
 import requests
-from pprint import pprint
+import os
+from dotenv import load_dotenv
 
-API_KEY = 'dict.1.1.20241201T200858Z.5a649dcf4e79f8a8.357aad5059dc96fd0fc5b05fb950573bbc82aacc'
+load_dotenv()
+
+API_KEY = os.getenv('API_KEY')
 BASE_URL = 'https://dictionary.yandex.net/api/v1/dicservice.json'
 
 
