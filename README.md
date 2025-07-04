@@ -1,5 +1,5 @@
 ### Описание проекта
-Целью создания данного Telegram-бота было научится работать с разными технологиями, такими как: API, sqlite3, peewee, venv.
+Целью создания данного Telegram-бота было научиться работать с разными технологиями, такими как: API, sqlite3, peewee, venv.
 Данный телеграм бот может служить как менеджер задач, словарь на многих языках мира.
 
 ### Как пользоваться
@@ -12,7 +12,7 @@
 /survey - опрос имя, возраст и т.д.
 /answer - кто больше нравится кот или собака, выбрать нажатием кнопки
 Переводчик:
-/translate_start - запуск переводчик 
+/translate_start - запуск переводчика
 /set_lang - выбор языка вписать одно из предложенного списка или выбрать самые популярные по кнопке
 /translate - ввод слова
 Менеджер задач:
@@ -30,9 +30,9 @@ https://dictionary.yandex.net/api/v1/dicservice.json/lookup -> /translate
 
 **/history** - история запросов
 **/survey** - опрос имя, возраст и т.д.
-**/answer** - кто больше нравится кот или собака
+**/answer** - кто больше нравится кот или собака, выбрать нажатием кнопки
 Переводчик:
-**/translate_start** - запуск переводчик
+**/translate_start** - запуск переводчика
 **/set_lang** - выбор языка
 **/translate** - ввод слова
 Менеджер задач:
@@ -41,13 +41,13 @@ https://dictionary.yandex.net/api/v1/dicservice.json/lookup -> /translate
 **/tasks** - последние 10 задач
 **/today** - задачи на сегодня
 
-**/translate_start** - запуск переводчик и получения списка языков
+**/translate_start** - запуск переводчика и получения списка языков
 
 Запрос без параметров:
 
 CURL GET https://dictionary.yandex.net/api/v1/dicservice.json/getLangs
 
-Пример ответ запроса:
+Пример ответа запроса:
 
 ```console
 ['be-be', 'be-ru', 'bg-ru', 'cs-cs', 'cs-en', 'cs-ru', 'da-en', 'da-ru', 'de-de', 'de-en', 'de-ru', 'de-tr', 'el-en', 'el-ru', 
@@ -89,14 +89,14 @@ CURL POST https://dictionary.yandex.net/api/v1/dicservice.json/lookup
 **/help** - помощь, вызывает список всех команд
 
 ### Как установить и запустить
-В папке где будет, хранится бот прописываем cmd:
+В папке где будет, храниться бот, прописываем cmd:
 
 ![img.png](img.png)
 
 В открывшейся консоли прописываем следующие команды:
 
 ```
-git clone https://gitlab.skillbox.ru/ilia_tarasov/python_basic_diploma.git
+git clone https://github.com/ninja152play/Base_TG_Bot.git
 
 ```
 
@@ -108,7 +108,7 @@ git clone https://gitlab.skillbox.ru/ilia_tarasov/python_basic_diploma.git
 
 Возвращаемся в консоль и прописываем:
 ```
-cd python_basic_diploma
+cd Base_TG_Bot
 
 python -m venv venv
 
@@ -122,7 +122,7 @@ python main.py
 ```
 Для остановки бота закройте консоль
 ### Повторный запуск
-В папке, где хранится бот ".\\python_basic_diploma" прописываем cmd:
+В папке, где хранится бот ".\\Base_TG_Bot" прописываем cmd:
 ![img.png](img.png)
 
 В консоли и прописываем:
@@ -134,7 +134,7 @@ python main.py
 Для остановки бота закройте консоль
 
 ### Запуск в режиме разработчика для редактирования кода
-Производим установку как описано выше, в проводнике копируем путь до бота - "E:\Python\python_basic_diploma".
+Производим установку как описано выше, в проводнике копируем путь до бота - "E:\Python\Base_TG_Bot".
 
 Запускаем PyCharm, нажимаем "File", "Open...", вставляем скопированный путь нажимаем "OK"
 
@@ -145,4 +145,4 @@ python main.py
 Запускаем в "main.py"
 
 ### Разработчики
-@ilia_tarasov
+@ilya_tarasov
